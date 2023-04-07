@@ -6,15 +6,37 @@ function myFunction(ls) {
   return ;
 }
 
-// set up a sample chart
-var data = [{
+// bar chart set up
+var barData = [{
   type: 'bar',
   x : [194, 178, 162, 92, 84, 40, 37, 28, 27, 24],
   y: [1167, 2859, 482, 2264, 41, 1189, 352, 189, 2318, 1977].toString(),
   orientation: 'h'
 }];
 
-Plotly.newPlot('plot', data);
+Plotly.newPlot('bar', barData);
+// bubble chart set up
+var trace1 = {
+  x: [1, 2, 3, 4],
+  y: [10, 11, 12, 13],
+  mode: 'markers',
+  marker: {
+    size: [40, 60, 80, 100]
+  }
+};
+
+var bubbleData = [trace1];
+
+var layout = {
+  title: 'Marker Size',
+  showlegend: false,
+  height: 600,
+  width: 600
+};
+
+Plotly.newPlot('bubble', bubbleData, layout);
+
+
 // assign variable lists
 
 
