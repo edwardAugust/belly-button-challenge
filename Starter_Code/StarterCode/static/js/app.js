@@ -1,17 +1,34 @@
 // dropdown menu
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
-const dropDown = d3.select("#selDataset")
+let dropDown = d3.select("#selDataset")  
 
+
+function optionChanged(name){
+  console.log(name);
+  setUp(name);
+}
 
 d3.json(url).then((data) => {
+  
   let  names = data.names; // as seen below this is a list object containing patient 'names'
   // console.log(names) \
   // there might be a simpler way; \
   // however, I'm going to use a loop to append them into the html dropdown element
   for (let n of names){
     dropDown.append('option').text(n).property('value', n);
-  }
+ }
 })
+function setUp(name){
+
+  d3.json(url).then((data) => {
+  // another loop to fill this list
+    let samples = data.samples
+    let samplesFiltered = samples.filter(keyValue => keyValue.id === name)[0];
+    let otuIds = samplesFiltered.otu_ids
+    console.log(otuIds)
+  })
+
+}
 
 // fuctions
 function myFunction(ls) {
@@ -72,7 +89,7 @@ d3.json(url).then((data) => {
 // d3.json(url).then(function(data) {
     // console.log("inside");
     samples = data.samples.otu_ids;
-    console.log(samples);
+    //console.log(samples);
     
     //let sample_values = samples.sample_values
     //let otu_ids = [] // convert to string each elements
@@ -91,8 +108,7 @@ d3.json(url).then((data) => {
       //row = samples[i];
       // console.log("howdy")
       //samplesList.push(row);
-      // console.log(data.samples);
-    }
+      // console.log(data.samples);}
 
   });
 
