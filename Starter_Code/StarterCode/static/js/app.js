@@ -63,13 +63,15 @@ let otu_labels =[]
 // Create variables that call the main 
 // dictionary keys from samples.json
 // const map1 = array1.map(x => "OTU " + x.toString());
-let samples
+
 
 // for loop
     // map within
-d3.json(url).then(function(data) {
-    console.log("inside");
-    samples = data.samples;
+d3.json(url).then((data) => {
+  let  samples = data.names;
+// d3.json(url).then(function(data) {
+    // console.log("inside");
+    samples = data.samples.otu_ids;
     console.log(samples);
     
     //let sample_values = samples.sample_values
@@ -85,10 +87,10 @@ d3.json(url).then(function(data) {
 
 
 
-    for (let i = 0; i < samples.length; i++) {
-      row = samples[i];
+    //for (let i = 0; i < samples.length; i++) {
+      //row = samples[i];
       // console.log("howdy")
-      samplesList.push(row);
+      //samplesList.push(row);
       // console.log(data.samples);
     }
 
