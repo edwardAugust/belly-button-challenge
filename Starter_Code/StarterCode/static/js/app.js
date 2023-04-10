@@ -1,4 +1,5 @@
 // dropdown menu
+const dropDown = d3.select("#selDataset")
 
 // fuctions
 function myFunction(ls) {
