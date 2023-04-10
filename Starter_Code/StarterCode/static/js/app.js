@@ -1,7 +1,7 @@
 // dropdown menu
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 let dropDown = d3.select("#selDataset")  
-
+// lets get the graphs loaded
 
 function optionChanged(name){
   console.log(name);
@@ -21,52 +21,47 @@ d3.json(url).then((data) => {
 function setUp(name){
 
   d3.json(url).then((data) => {
-  // another loop to fill this list
-    let samples = data.samples
-    let samplesFiltered = samples.filter(keyValue => keyValue.id === name)[0];
-    let otuIds = samplesFiltered.otu_ids
-    console.log(otuIds)
-  })
+    // need to find a way for the graphs to load before choosing a patient
+    let samples = data.samples;
+    let filteredData = samples.filter(keyValue => keyValue.id === name)[0];
+    let otuIds = filteredData.otu_ids ;//console.log(otuIds)
+    let sampleValues = filteredData.sample_values;
+    let outLabels = filteredData.otu_labels;
+    let barData = [{
+      type: 'bar',
+      x : sampleValues,
+      y: otuIds.toString(),
+      orientation: 'h'
+    }];
+    Plotly.newPlot('bar', barData);
+    let trace1 = {
+    x : sampleValues,
+    y: otuIds,
+    mode: 'markers',
+    marker: {
+      size: sampleValues
+    }
+  };
+  
+    let bubbleData = [trace1];
+  
+    let layout = {
+    title: 'Marker Size',
+    showlegend: false,
+    height: 600,
+    width: 600
+  };
+  
+    Plotly.newPlot('bubble', bubbleData, layout);
 
-}
-
-// fuctions
-function myFunction(ls) {
-  for (const x of [1,2,3,4,5]) {
-    // code block to be executed
   }
-  return ;
-}
+)}
+
 
 // bar chart set up
-var barData = [{
-  type: 'bar',
-  x : [194, 178, 162, 92, 84, 40, 37, 28, 27, 24],
-  y: [1167, 2859, 482, 2264, 41, 1189, 352, 189, 2318, 1977].toString(),
-  orientation: 'h'
-}];
 
-Plotly.newPlot('bar', barData);
 // bubble chart set up
-var trace1 = {
-  x : [194, 178, 162, 92, 84, 40, 37, 28, 27, 24],
-  y: [1167, 2859, 482, 2264, 41, 1189, 352, 189, 2318, 1977],
-  mode: 'markers',
-  marker: {
-    size: [194, 178, 162, 92, 84, 40, 37, 28, 27, 24]
-  }
-};
 
-var bubbleData = [trace1];
-
-var layout = {
-  title: 'Marker Size',
-  showlegend: false,
-  height: 600,
-  width: 600
-};
-
-Plotly.newPlot('bubble', bubbleData, layout);
 
 
 // assign variable lists
