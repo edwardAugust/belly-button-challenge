@@ -5,7 +5,7 @@ let dropDown = d3.select("#selDataset")
 
 function optionChanged(name){
   console.log(name);
-  setUp(name);
+  setup(name);
 }
 
 d3.json(url).then((data) => {
@@ -17,9 +17,19 @@ d3.json(url).then((data) => {
   for (let n of names){
     dropDown.append('option').text(n).property('value', n);
  }
+ setup(940);
 })
-function setUp(name){
-
+function barGraph(sampleValues, otuIds){
+  let barData = [{
+    type: 'bar',
+    x : sampleValues,
+    y: otuIds.toString(),
+    orientation: 'h'
+  }];
+  Plotly.newPlot('bar', barData);
+}
+// function bubbleGraph()
+function setup(name){
   d3.json(url).then((data) => {
     // need to find a way for the graphs to load before choosing a patient
     let samples = data.samples;
@@ -27,13 +37,8 @@ function setUp(name){
     let otuIds = filteredData.otu_ids ;//console.log(otuIds)
     let sampleValues = filteredData.sample_values;
     let outLabels = filteredData.otu_labels;
-    let barData = [{
-      type: 'bar',
-      x : sampleValues,
-      y: otuIds.toString(),
-      orientation: 'h'
-    }];
-    Plotly.newPlot('bar', barData);
+
+
     let trace1 = {
     x : sampleValues,
     y: otuIds,
